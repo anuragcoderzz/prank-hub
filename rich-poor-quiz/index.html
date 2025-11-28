@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rich vs Ultra Poor 💰</title>
+<style>
+    body {font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;text-align:center;padding:30px;min-height:100vh}
+    h1 {font-size:32px;margin:20px}
+    .box {background:rgba(255,255,255,0.1);padding:30px;border-radius:20px;max-width:500px;margin:20px auto}
+    input,button {width:90%;padding:15px;margin:10px;border-radius:10px;border:none;font-size:18px}
+    button {background:#ff3040;color:white;cursor:pointer}
+    #result {margin-top:30px;font-size:26px;line-height:1.6}
+</style>
+</head>
+<body>
+<h1>Rich vs Ultra Poor 💰</h1>
+<div class="box">
+<input type="text" id="name" placeholder="Apna naam daal bhai 😎">
+<button onclick="check()">Bata De Mera Level</button>
+<div id="result"></div>
+</div>
+<script>
+function check(){
+    let name = document.getElementById('name').value || "Bhai";
+    let rand = Math.random();
+    let msg = "";
+    if(rand > 0.8) msg = `${name} Ambani ka beta certified hai 🔥<br>Tere paas 10 gaadi + 5 bangla hoga!`;
+    else if(rand > 0.5) msg = `${name} middle class king hai 👑<br>EMI pe gaadi + ghar chal raha hai`;
+    else if(rand > 0.2) msg = `${name} ultra poor certified 😭<br>Reel banake pet bhar raha hai`;
+    else msg = `${name} to berozgaar + majdoor level hai 😂<br>Abhi bhi maa-baap ke paise pe jee raha hai`;
+    
+    document.getElementById('result').innerHTML = `<br>${msg}`;
+}
+</script>
+</body>
+</html>

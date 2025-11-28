@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Dowry Calculator - How Much Are You Worth?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, #8B008B, #FFD700, #000, #4B0082);
+            background-size: 300% 300%;
+            animation: royalPulse 15s ease infinite;
+        }
+
+        @keyframes royalPulse {
+            0% { background-position: 0% 50%; transform: scale(1); }
+            50% { background-position: 100% 100%; transform: scale(1.1); }
+            100% { background-position: 0% 50%; transform: scale(1); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.8); /* Golden neon */
+            border-radius: 50%;
+            animation: float 12s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translate(50px, -50px) rotate(180deg); opacity: 1; }
+            100% { transform: translate(0, 0) rotate(360deg); opacity: 0.6; }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #FFD700;
+        }
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: #FFD700;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        select, option {
+    background: #fff !important;
+    color: #000 !important;
+        }
+
+        button {
+            background: linear-gradient(45deg, #8B008B, #FFD700);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #loading {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 4px solid #FFD700;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 20px #FFD700;
+            margin: 10px 0;
+        }
+
+        .category-title {
+            font-size: 24px;
+            color: #fff;
+            margin: 10px 0;
+        }
+
+        .dowry-amount {
+            font-size: 20px;
+            color: #8B008B;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .share-btn {
+            background: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .disclaimer {
+            background: #ff4444;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 24px; }
+            .score { font-size: 36px; }
+            iframe { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <!-- Golden Neon Particles -->
+    <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 30%; left: 70%; animation-delay: 3s;"></div>
+    <div class="particle" style="top: 50%; left: 40%; animation-delay: 6s;"></div>
+    <div class="particle" style="top: 70%; left: 90%; animation-delay: 9s;"></div>
+    <div class="particle" style="top: 90%; left: 10%; animation-delay: 12s;"></div>
+
+    <div class="form-container">
+        <h1>How Much Dowry Are You Worth? 💍😂</h1>
+        <form id="dowryForm">
+            <label for="age">Age:</label>
+            <select id="age" required>
+                <option value="">Select</option>
+                <option value="18-24">18-24 years (+30 pts)</option>
+                <option value="25-30">25-30 years (+25 pts)</option>
+                <option value="31-35">31-35 years (+10 pts)</option>
+                <option value="36-40">36-40 years (-20 pts)</option>
+                <option value="40+">40+ years (-30 pts)</option>
+            </select>
+
+            <label for="profession">Profession:</label>
+            <select id="profession" required>
+                <option value="">Select</option>
+                <option value="entrepreneur">Entrepreneur (+20)</option>
+                <option value="engineer">Engineer (+30)</option>
+                <option value="doctor">Doctor (+40)</option>
+                <option value="banker">Investment Banker (+50)</option>
+                <option value="manager">Brand/Product Manager (+35)</option>
+                <option value="creator">Content Creator (+25)</option>
+                <option value="majdoor">Majdoor (-40)</option>
+                <option value="nalla">Nalla (-50)</option>
+                <option value="other">Other (0)</option>
+            </select>
+
+            <label for="salary">Monthly Salary:</label>
+            <select id="salary" required>
+                <option value="">Select</option>
+                <option value="less-50k">Less than 50k (-30)</option>
+                <option value="50k-1l">50k-1L (+10)</option>
+                <option value="1l-2l">1-2L (+20)</option>
+                <option value="2l-5l">2-5L (+25)</option>
+                <option value="5l+">5L+ (+40)</option>
+            </select>
+
+            <label for="education">Education:</label>
+            <select id="education" required>
+                <option value="">Select</option>
+                <option value="anpadh">Anpadh (-50)</option>
+                <option value="highschool">High School (0)</option>
+                <option value="graduation">Graduation (+15)</option>
+                <option value="postgrad">Post Graduation (+25)</option>
+                <option value="phd">PhD (+30)</option>
+                <option value="dropout">Dropout (-20)</option>
+            </select>
+
+            <button type="submit">Calculate My Dowry Worth! 🎯</button>
+        </form>
+
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>Calculating your royal price... Hold tight! ⏳</p>
+        </div>
+
+        <div id="result">
+            <div class="score" id="scoreDisplay"></div>
+            <div class="category-title" id="categoryTitle"></div>
+            <div class="dowry-amount" id="dowryAmount"></div>
+            <iframe id="dowryVideo" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <br>
+            <a href="#" id="shareBtn" class="share-btn">Share on WhatsApp 😂</a>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        <strong>⚠️ DISCLAIMER:</strong><br>
+        Dowry is ILLEGAL in India (Dowry Prohibition Act, 1961).<br>
+        Giving or taking dowry is a punishable offence.<br>
+        This website is a PARODY / SATIRE made only for entertainment & laughs.<br>
+        No one should use this to demand or expect dowry in real life.<br>
+        Shaadi pyaar se karo, dahej se nahi! 😂❤️
+    </div>
+
+    <!-- Confetti Library (CDN for single file) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Scoring System
+        const scores = {
+            age: { '18-24': 30, '25-30': 25, '31-35': 10, '36-40': -20, '40+': -30 },
+            profession: { entrepreneur: 20, engineer: 30, doctor: 40, banker: 50, manager: 35, creator: 25, majdoor: -40, nalla: -50, other: 0 },
+            salary: { 'less-50k': -30, '50k-1l': 10, '1l-2l': 20, '2l-5l': 25, '5l+': 40 },
+            education: { anpadh: -50, highschool: 0, graduation: 15, postgrad: 25, phd: 30, dropout: -20 }
+        };
+
+        // Categories
+        const categories = [
+            { min: 90, max: 100, title: "Maharaja Level Groom 👑", amount: "₹5 Crore + Palace + Private Jet", video: "https://player.vimeo.com/video/1071911332?autoplay=1&loop=1" },
+            { min: 75, max: 89, title: "Lakhpati Babu 💰", amount: "₹50 Lakh - ₹2 Crore + Luxury Car", video: "https://player.vimeo.com/video/1071912876?autoplay=1&loop=1" },
+            { min: 50, max: 74, title: "Alto + Fridge Package 🚗", amount: "₹10-30 Lakh + Alto + Gold Chain", video: "https://player.vimeo.com/video/1071914019?autoplay=1&loop=1" },
+            { min: 30, max: 49, title: "Bas Thodi Si Kismat Chahiye 🍀", amount: "₹1-5 Lakh ya Zero + Good Luck", video: "https://player.vimeo.com/video/1071915215?autoplay=1&loop=1" },
+            { min: 0, max: 29, title: "Nalla Confirmed 😭", amount: "Dahej lene nahi, dene padenge! Chappal + Cycle", video: "https://player.vimeo.com/video/1071916890?autoplay=1&loop=1" }
+        ];
+
+        document.getElementById('dowryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+
+            // Simulate loading
+            setTimeout(() => {
+                // Calculate score
+                const age = document.getElementById('age').value;
+                const profession = document.getElementById('profession').value;
+                const salary = document.getElementById('salary').value;
+                const education = document.getElementById('education').value;
+
+                let totalScore = scores.age[age] + scores.profession[profession] + scores.salary[salary] + scores.education[education];
+                totalScore = Math.max(0, Math.min(100, totalScore)); // Clamp 0-100
+
+                // Find category
+                let category = categories[4]; // Default lowest
+                for (let cat of categories) {
+                    if (totalScore >= cat.min && totalScore <= cat.max) {
+                        category = cat;
+                        break;
+                    }
+                }
+
+                // Display result
+                document.getElementById('scoreDisplay').textContent = totalScore;
+                document.getElementById('categoryTitle').textContent = category.title;
+                document.getElementById('dowryAmount').textContent = category.amount;
+
+                const video = document.getElementById('dowryVideo');
+                video.src = category.video;
+                video.style.display = 'block';
+
+                // Confetti for high score
+                if (totalScore >= 90) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+
+                // Share button
+                const shareBtn = document.getElementById('shareBtn');
+                const shareText = `Meri dowry worth: ${totalScore}/100 - ${category.title}! 😂 Check yours: https://anuragcoderzz.github.io/dowry-calculator.html`;
+                shareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+
+                // Hide loading, show result
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+            }, 3000); // 3 sec delay
+        });
+    </script>
+</body>
+</html>

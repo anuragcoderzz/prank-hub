@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaadi Compatibility 😂</title>
+<style>
+    body {font-family:Arial;background:#000;color:#fff;text-align:center;padding:30px;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh}
+    h1 {font-size:32px;margin:20px}
+    .box {background:rgba(255,255,255,0.1);padding:30px;border-radius:20px;max-width:500px;margin:20px auto}
+    input {width:90%;padding:15px;margin:10px;border-radius:10px;border:none;font-size:18px}
+    button {background:#ff3040;color:white;padding:15px 30px;border:none;border-radius:10px;font-size:20px;cursor:pointer}
+    #result {margin-top:30px;font-size:24px}
+</style>
+</head>
+<body>
+<h1>Shaadi Compatibility Test ❤️</h1>
+<div class="box">
+<input type="text" id="boy" placeholder="Ladke ka naam daal">
+<input type="text" id="girl" placeholder="Ladki ka naam daal">
+<button onclick="check()">Calculate Karo</button>
+<div id="result"></div>
+</div>
+<script>
+function check(){
+    let b = document.getElementById('boy').value;
+    let g = document.getElementById('girl').value;
+    if(!b || !g) return alert("Dono naam daal bhai 😂");
+    let percent = Math.floor(Math.random()*91)+10;
+    let msg = percent>=85?"Shaadi 100% Pakki! ❤️❤️":"Thodi si kismat chahiye 😅";
+    if(percent<=30) msg = "Bhagwan bharose chhod do 😂";
+    document.getElementById('result').innerHTML = `<br>${b} ❤️ ${g}<br><br>${percent}% Match<br><br>${msg}`;
+}
+</script>
+</body>
+</html>
